@@ -1,5 +1,12 @@
 import { initializeApp } from "firebase/app"
-import { getAnalytics } from "firebase/analytics"
+import { addDoc, collection, getFirestore } from "firebase/firestore"
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+} from "firebase/auth"
+import { createUserWithEmailAndPassword } from "firebase/auth/cordova"
+import { removeLocalStorage, setLocalStorage } from "./local_storage"
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -12,4 +19,53 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-const analytics = getAnalytics(app)
+const db = getFirestore(app)
+const auth = getAuth(app)
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    setLocalStorage("firebase_user", user)
+    return
+  }
+  removeLocalStorage("firebase_user")
+})
+
+export const firebaseSignUp = async (email, password) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    )
+    return { data: userCredential.user, status: true }
+  } catch (error) {
+    return { error: error.code, status: false }
+  }
+}
+
+export const firebaseSignIn = async (email, password) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    )
+    return { data: userCredential.user, status: true }
+  } catch (error) {
+    return { error: error.code, status: false }
+  }
+}
+
+export const storeUser = async (name, phone, email, room_id = null) => {
+  try {
+    const data = await addDoc(collection(db, "users"), {
+      name,
+      phone,
+      email,
+      room_id,
+    })
+    return { data, status: true }
+  } catch (error) {
+    return { error: error.code, status: false }
+  }
+}
