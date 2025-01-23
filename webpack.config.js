@@ -12,6 +12,8 @@ module.exports = {
   mode: "development",
   plugins: [new webpack.DefinePlugin(envKeys)],
   entry: {
+    constants: "./src/constants.js",
+    util: "./src/util.js",
     index: "./src/index.js",
     sign_up: "./src/sign_up.js",
     sign_in: "./src/sign_in.js",

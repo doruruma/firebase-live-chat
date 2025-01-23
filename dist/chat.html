@@ -10,17 +10,51 @@
 
 <body>
 
-  <h4>Hello world</h4>
+  <ul class="nav nav-tabs mb-5">
+    <li class="nav-item">
+      <a data-id="1" class="nav-link nav-link-room">Lobby</a>
+    </li>
+    <li class="nav-item">
+      <a data-id="2" class="nav-link nav-link-room">Ruang 2D</a>
+    </li>
+    <li class="nav-item">
+      <a data-id="3" class="nav-link nav-link-room">Ruang 3D</a>
+    </li>
+    <li class="nav-item">
+      <a data-id="4" class="nav-link nav-link-room">Ruang Visual Novel</a>
+    </li>
+    <li class="nav-item">
+      <a data-id="5" class="nav-link nav-link-room">Live Music</a>
+    </li>
+  </ul>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card" style="height: calc(100vh - 138px)">
+          <div class="card-body overflow-y-auto" id="chatContainer">
+          </div>
+          <div class="p-3 border-top">
+            <form id="formChat" class="d-flex align-items-start w-100">
+              <div class="w-100 me-3">
+                <textarea class="form-control" id="chat" placeholder="Type your message here" style="resize: none;"></textarea>
+                <div id="chatHelp" class="form-text">Say hello to others</div>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script
     src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="js/local_storage.js"></script>
-  <script src="js/firebase.js"></script>
-  <script src="js/component.js"></script>
   <script src="js/chat.js"></script>
+
 </body>
 
 </html>
