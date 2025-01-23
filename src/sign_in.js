@@ -1,4 +1,5 @@
-import { firebaseSignIn } from "./firebase"
+import { firebaseSignIn, getUserDoc } from "./firebase"
+import { setLocalStorage } from "./local_storage"
 
 $(document).ready(function () {
   // formSignIn @submit
@@ -11,6 +12,11 @@ $(document).ready(function () {
       alert("Sign In Failed")
       return
     }
-    if (response.status === true) window.location.href = "chat.html"
+    if (response.status === true) {
+      const user = await getUserDoc(email)
+      console.log('USER-DOC', user.data)
+      if (user.data) setLocalStorage("user", user.data)
+      window.location.href = "chat.html"
+    }
   })
 })

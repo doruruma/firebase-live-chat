@@ -1,4 +1,6 @@
-import { firebaseSignUp, storeUser } from "./firebase"
+import { ROOMS } from "./constants"
+import { firebaseSignUp, upsertUser } from "./firebase"
+import { setLocalStorage } from "./local_storage"
 
 $(document).ready(function () {
   // formSignUp @submit
@@ -9,11 +11,28 @@ $(document).ready(function () {
     const email = $("input#email").val()
     const password = $("input#password").val()
     const signUpResponse = await firebaseSignUp(email, password)
-    if (signUpResponse.status == false) {
+    if (signUpResponse.status === false) {
       alert("Sign Up Failed")
       return
     }
-    const storeUserResponse = await storeUser(name, phone, email)
-    if (storeUserResponse.status === true) window.location.href = "chat.html"
+    const room_id = ROOMS[0].id
+    const room_name = ROOMS[0].name
+    const storeUserResponse = await upsertUser({
+      name,
+      phone,
+      email,
+      room_id,
+      room_name,
+    })
+    if (storeUserResponse.status === true) {
+      setLocalStorage("user", {
+        name,
+        phone,
+        email,
+        room_id,
+        room_name,
+      })
+      window.location.href = "chat.html"
+    }
   })
 })
