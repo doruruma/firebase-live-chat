@@ -1,7 +1,7 @@
 import { getLocalStorage } from "./local_storage"
 import { formatTimestamp } from "./util"
 
-export const chatItem = (data) => {  
+export const chatItem = (data) => {
   const user = getLocalStorage("user")
   const isFromMe = data.sender_email === user.email
   const html = `
@@ -18,4 +18,5 @@ export const chatItem = (data) => {
     </div>
   `
   $("#chatContainer").append(html)
+  $("#chatContainer").scrollTop($("#chatContainer")[0].scrollHeight)
 }
