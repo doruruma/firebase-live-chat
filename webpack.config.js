@@ -12,15 +12,10 @@ module.exports = {
   mode: "development",
   plugins: [new webpack.DefinePlugin(envKeys)],
   entry: {
-    constants: "./src/constants.js",
-    util: "./src/util.js",
     index: "./src/index.js",
     sign_up: "./src/sign_up.js",
     sign_in: "./src/sign_in.js",
     chat: "./src/chat.js",
-    firebase: "./src/firebase.js",
-    component: "./src/component.js",
-    local_storage: "./src/local_storage.js",
   },
   output: {
     filename: "[name].js",
